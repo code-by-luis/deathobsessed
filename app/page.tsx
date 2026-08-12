@@ -33,7 +33,7 @@ export default function Home() {
 
     try {
       video.currentTime = 0;
-      video.volume = 0.35;
+      video.volume = 0.20;
 
       await video.play();
 
@@ -96,10 +96,6 @@ export default function Home() {
           >
             enter
           </button>
-
-          <span className="enterStatus">
-            audio enabled
-          </span>
         </div>
       )}
 
