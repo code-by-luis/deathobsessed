@@ -33,7 +33,7 @@ export default function Home() {
 
     try {
       video.currentTime = 0;
-      video.volume = 0.35;
+      video.volume = 0.20;
 
       await video.play();
 
