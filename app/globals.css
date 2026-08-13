@@ -582,3 +582,12 @@ h1 {
     animation: none;
   }
 }
+
+.enterScreen,
+.enterButton {
+  touch-action: manipulation;
+}
+
+.enterButton {
+  -webkit-tap-highlight-color: transparent;
+}

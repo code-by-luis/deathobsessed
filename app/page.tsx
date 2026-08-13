@@ -25,42 +25,16 @@ export default function Home() {
 
   const [entered, setEntered] = useState(false);
   const [time, setTime] = useState("00:00");
-
   const [debug, setDebug] = useState("idle");
 
-async function enterSite() {
-  const video = videoRef.current;
+  useEffect(() => {
+    setDebug("react mounted");
+  }, []);
 
-  setEntered(true);
-  setDebug("tap received");
-
-  if (!video) {
-    setDebug("video ref missing");
-    return;
+  function enterSite() {
+    setDebug("tap received");
+    setEntered(true);
   }
-
-  try {
-    setDebug(
-      `before play · readyState=${video.readyState} · networkState=${video.networkState}`
-    );
-
-    video.currentTime = 0;
-
-    const playPromise = video.play();
-
-    setDebug("play() called");
-
-    await playPromise;
-
-    setDebug("playing");
-  } catch (error) {
-    if (error instanceof Error) {
-      setDebug(`${error.name}: ${error.message}`);
-    } else {
-      setDebug(String(error));
-    }
-  }
-}
 
   useEffect(() => {
     const video = videoRef.current;
@@ -104,6 +78,7 @@ async function enterSite() {
       >
         {debug}
       </p>
+
       <video
         ref={videoRef}
         className="backgroundVideo"
@@ -121,10 +96,12 @@ async function enterSite() {
       <div className="grain" />
 
       {!entered && (
-        <div className="enterScreen">
+        <div
+          className="enterScreen"
+          onClick={enterSite}
+        >
           <button
             className="enterButton"
-            onClick={enterSite}
             type="button"
           >
             enter
