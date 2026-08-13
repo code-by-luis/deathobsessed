@@ -29,6 +29,8 @@ export default function Home() {
   async function enterSite() {
     const video = videoRef.current;
 
+    setEntered(true);
+
     if (!video) return;
 
     try {
@@ -36,8 +38,6 @@ export default function Home() {
       video.volume = 0.20;
 
       await video.play();
-
-      setEntered(true);
     } catch (error) {
       console.error("Video playback failed:", error);
     }
@@ -76,7 +76,7 @@ export default function Home() {
         className="backgroundVideo"
         loop
         playsInline
-        preload="auto"
+        preload="metadata"
       >
         <source
           src="/background.mp4"
