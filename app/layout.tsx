@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "yourname",
-  description: "my little corner of the internet",
+  title: "deathobsession",
+  description: "",
   openGraph: {
-    title: "yourname",
-    description: "my little corner of the internet",
+    title: "deathobsession",
+    description: "",
     type: "website",
   },
 };
