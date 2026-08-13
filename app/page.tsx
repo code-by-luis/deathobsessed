@@ -25,15 +25,22 @@ export default function Home() {
 
   const [entered, setEntered] = useState(false);
   const [time, setTime] = useState("00:00");
-  const [debug, setDebug] = useState("idle");
 
-  useEffect(() => {
-    setDebug("react mounted");
-  }, []);
+  async function enterSite() {
+    const video = videoRef.current;
 
-  function enterSite() {
-    setDebug("tap received");
-    setEntered(true);
+    if (!video) return;
+
+    try {
+      video.currentTime = 0;
+      video.volume = 0.35;
+
+      await video.play();
+
+      setEntered(true);
+    } catch (error) {
+      console.error("Video playback failed:", error);
+    }
   }
 
   useEffect(() => {
@@ -64,27 +71,12 @@ export default function Home() {
 
   return (
     <main className="page">
-      <p
-        style={{
-          position: "fixed",
-          top: 10,
-          left: 10,
-          zIndex: 9999,
-          color: "red",
-          background: "black",
-          padding: "8px",
-          fontSize: "12px",
-        }}
-      >
-        {debug}
-      </p>
-
       <video
         ref={videoRef}
         className="backgroundVideo"
         loop
         playsInline
-        preload="metadata"
+        preload="auto"
       >
         <source
           src="/background.mp4"
@@ -96,12 +88,10 @@ export default function Home() {
       <div className="grain" />
 
       {!entered && (
-        <div
-          className="enterScreen"
-          onClick={enterSite}
-        >
+        <div className="enterScreen">
           <button
             className="enterButton"
+            onClick={enterSite}
             type="button"
           >
             enter
