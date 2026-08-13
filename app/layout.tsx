@@ -18,19 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.addEventListener("load", function () {
-                alert("plain javascript works");
-              });
-            `,
-          }}
-        />
-
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
