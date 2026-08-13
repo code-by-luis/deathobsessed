@@ -39,7 +39,11 @@ export default function Home() {
 
       await video.play();
     } catch (error) {
-      console.error("Video playback failed:", error);
+      if (error instanceof Error) {
+        alert(`${error.name}: ${error.message}`);
+      } else {
+        alert(String(error));
+      }
     }
   }
 
