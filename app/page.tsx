@@ -26,26 +26,41 @@ export default function Home() {
   const [entered, setEntered] = useState(false);
   const [time, setTime] = useState("00:00");
 
-  async function enterSite() {
-    const video = videoRef.current;
+  const [debug, setDebug] = useState("idle");
 
-    setEntered(true);
+async function enterSite() {
+  const video = videoRef.current;
 
-    if (!video) return;
+  setEntered(true);
+  setDebug("tap received");
 
-    try {
-      video.currentTime = 0;
-      video.volume = 0.20;
+  if (!video) {
+    setDebug("video ref missing");
+    return;
+  }
 
-      await video.play();
-    } catch (error) {
-      if (error instanceof Error) {
-        alert(`${error.name}: ${error.message}`);
-      } else {
-        alert(String(error));
-      }
+  try {
+    setDebug(
+      `before play · readyState=${video.readyState} · networkState=${video.networkState}`
+    );
+
+    video.currentTime = 0;
+
+    const playPromise = video.play();
+
+    setDebug("play() called");
+
+    await playPromise;
+
+    setDebug("playing");
+  } catch (error) {
+    if (error instanceof Error) {
+      setDebug(`${error.name}: ${error.message}`);
+    } else {
+      setDebug(String(error));
     }
   }
+}
 
   useEffect(() => {
     const video = videoRef.current;
@@ -75,6 +90,20 @@ export default function Home() {
 
   return (
     <main className="page">
+      <p
+        style={{
+          position: "fixed",
+          top: 10,
+          left: 10,
+          zIndex: 9999,
+          color: "red",
+          background: "black",
+          padding: "8px",
+          fontSize: "12px",
+        }}
+      >
+        {debug}
+      </p>
       <video
         ref={videoRef}
         className="backgroundVideo"
