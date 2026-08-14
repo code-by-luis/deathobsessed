@@ -222,6 +222,23 @@ export default function Home() {
           </p>
         </section>
 
+        <section className="section">
+          <span className="sectionLabel">
+            writings
+          </span>
+
+          <a
+            className="textLink"
+            href="/blog"
+          >
+            enter archive
+
+            <span className="arrow">
+              ↗
+            </span>
+          </a>
+        </section>
+
         <footer className="closingNote">
           <span className="closingPrompt">
             want a site like this?
